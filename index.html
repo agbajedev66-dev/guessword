@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Guess Words</title>
+    <link rel="stylesheet" href="guess-words.css" />
+  </head>
+  <body>
+    <div class="bg-guess">
+      <h1 class="tittle">
+        <span>Guess the word</span>
+      </h1>
+      
+     
+    </div>
+    <div class="whole-container">
+     
+       <div class="popup" ><p>🎉 YOU ACTUALLY WON!</p></div>
+       <div class="wrongPopup"><p>❌ Wrong! Try a new word.</p></div>
+      <div class="header"><h4>Word Scramble</h4></div>
+      <div class="word-container"><p class="scrambled"></p></div>
+      <div class="info-container">
+        <div class="tries">
+          <span class="triesNumber">Tries:(5/5)</span>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="mistakes"><p>Mistakes:</p></div>
+      </div>
+      <div class="inputs-box">
+                <div class="filled-box"  >
+      </div>
+     
+    </div>
+     <div class="btns">
+        <button class="randomBtn">Random</button>
+        <button class="reset" onclick="resetGame()">Reset</button>
+      </div>
+    <script src="guess-words.js"></script>
+  </body>
+</html>
