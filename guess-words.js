@@ -3729,107 +3729,113 @@ createInputField();
 // handling Inputs
 
 function handleInput() {
-  let inputBoxes = document.querySelectorAll("input");
+  const inputBoxes = document.querySelectorAll("input");
+  const popup = document.querySelector(".popup");
 
-  inputBoxes.forEach((input, index) => {
+  if (!inputBoxes.length || !word) return;
+  const inputs = Array.from(inputBoxes);
+
+  inputs.forEach((input, index) => {
     // Adding active on parent element input
+
     input.addEventListener("focus", () => {
-      input.parentElement.classList.add("active");
+      input.parentElement?.classList.add("active");
     });
 
     // Removing active on parent element input
     input.addEventListener("blur", () => {
-      input.parentElement.classList.remove("active");
+      input.parentElement?.classList.remove("active");
     });
 
     //Adding Eent Listner to input
     input.addEventListener("input", (event) => {
-      const value = event.target.value; // Getting input value
-      const current = value.replace(/[^a-zA-Z]/g, ""); //Using regex with replace to avoid numbers in input field
+      const currentInput = event.target; // Getting input value
+      const value = currentInput.value.replace(/[^a-zA-Z]/g, "").slice(-1); //Using regex with replace to avoid numbers in input field
 
-      event.target.value = current; // update the input field
+      currentInput.value = value; // update the input field
+
+      if (!value) {
+        showWin(inputs);
+      }
+
+      const current = value.toLocaleLowerCase();
 
       // if an input current value and word index are equal
-      if (current === word[index]) {
-        if (index + 1 < inputBoxes.length) {
-          console.log(inputBoxes.length);
-          inputBoxes[index + 1].focus(); //if index of input is +1 but still lesser than inputBoxes then add focus to next inputBoxes index (move forward to next input)
+      if (current === String(word[index]).toLocaleLowerCase()) {
+        if (index < inputs.length - 1) {
+          console.log(inputs.length);
+          inputs[index + 1].focus(); //if index of input is +1 but still lesser than inputBoxes then add focus to next inputBoxes index (move forward to next input)
         }
       } else {
         if (current && !mistakes.includes(current)) {
-          //   mistakes += (mistakes ? "" : ",") + current; // else if
           mistakes.push(current);
-          wrongLetters.textContent = "Mistakes: " + mistakes.join(",");
+          wrongLetters.textContent = `Mistakes: ${mistakes.join(",")}`;
           console.log(mistakes);
-          tries--;
-          triesDot.textContent = ` Tries:(${tries}/5)`;
-          dots[mistakes.length - 1]?.classList.add("active-dot");
-          //   for (let i = 0; i < mistakes.split(",").length; i++) {
-          //     console.log(i);
-          //     dots[i].classList.add("active-dot");
-          //   }
-          //   setTimeout(() => {
-          //     wrongPopup.style.display = "block";
-          //   }, 100);
-          //   setTimeout(() => {
-          //     wrongPopup.style.display = "none";
-          //   }, 1000);
         }
 
         if (mistakes.length >= 5) {
-          resetGame();
-          return;
+          tries = Math.max(0, tries - 1);
+          triesDot.textContent = ` Tries:(${tries}/5)`;
+
+          mistakes = [];
+          wrongLetters.textContent = "Mistakes:";
+          console.log(tries);
+
+          if (tries === 0) {
+            resetGame();
+            return;
+          }
         }
       }
 
-      //Move Backward
-      // Moving to the previous input if input have not current value and box index is greater than zero
-      if (current.length === 0 && index > 0) {
-        inputBoxes[index - 1].focus();
-      }
-      showWin(inputBoxes);
+      // Check Whether the player has complete the word
+      showWin(inputs);
     });
 
-    function showWin(inputBoxes) {
+    // Handle BackSpace navigation
+    input.addEventListener("keydown", (event) => {
+      if (event.key !== "Backspace") return;
+      // console.log("BackSpace Keydown");
+
+      // If this box is already empty, go back one box.
+      if (!input.value && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    function showWin(inputs) {
       // const allFilled = index === inputBoxes.length - 1;
-      const allFilled = Array.from(inputBoxes).every(
-        (input) => input.value.length === 1,
-      );
+      const allFilled = inputs.every((input) => input.value.length === 1);
       // const allCorrect = current === word[index];
-      const allCorrect = Array.from(inputBoxes).every(
-        (input, index) => input.value === word[index],
+      const allCorrect = inputs.every(
+        (input, index) =>
+          input.value.toLocaleLowerCase() ===
+          String(word[index].toLocaleLowerCase()),
       );
+
       console.log(allFilled);
       console.log(allCorrect);
 
       if (allFilled && allCorrect) {
         console.log("congratulation");
-        const popup = document.querySelector(".popup");
+
+        if (popup) popup.style.display = "block";
 
         setTimeout(() => {
-          popup.style.display = "block";
-        }, 200);
-
-        setTimeout(() => {
-          popup.style.display = "none";
-        }, 2000);
-
-        startGame();
+          if (popup) popup.style.display = "none";
+          startGame();
+        }, 5000);
       } else if (allFilled && !allCorrect) {
+        if (wrongPopup) wrongPopup.style.display = "block";
+
         setTimeout(() => {
-          wrongPopup.style.display = "block";
-        }, 100);
-        setTimeout(() => {
-          wrongPopup.style.display = "none";
-        }, 1000);
+          if (wrongPopup) wrongPopup.style.display = "none";
+        }, 5000);
         resetGame();
+       
       }
     }
-
-    input.addEventListener("keydown", (event) => {
-      if (event.key !== "Backspace") return;
-      console.log("BackSpace Keydown");
-    });
+    showWin(inputs);
   });
 }
 handleInput();

@@ -6,6 +6,7 @@
 body {
   background: linear-gradient(to right, #7429c6, #c951e7);
   font-family: "Outfit", sans-serif;
+  height: 100dvh;
   overflow: hidden;
 }
 .bg-guess {
