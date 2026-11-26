@@ -85,6 +85,7 @@ body {
   font-size: bold;
 }
 .info-container {
+  min-height: 44px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -130,9 +131,9 @@ body {
   border-radius: 5px;
   margin: 12px 0;
 }
-.active {
+/* .active {
   border: 2px solid #7429c6;
-}
+} */
 .filled-box input {
   width: 100%;
   height: 100%;
@@ -143,6 +144,16 @@ body {
   text-align: center;
   color: white;
   font-weight: bold;
+}
+
+.hide{
+  display: none;
+}
+
+.game-rules{
+
+  display: flex;
+  flex-direction: column;
 }
 
 .btns {

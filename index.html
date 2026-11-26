@@ -9,8 +9,10 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    <title>Guess Words</title>
+    
+
     <link rel="stylesheet" href="guess-words.css" />
+    <title>Guess Words</title>
   </head>
   <body>
     <div class="bg-guess">
@@ -29,6 +31,12 @@
       <div class="info-container">
         <div class="tries">
           <span class="triesNumber">Tries:(5/5)</span>
+         <div id="game-rules">
+           <button onclick="toggleInfo()"><i class="fa-solid fa-circle-info fa-sm"></i></button>
+          <p id="rules" class="hide">Your Game Rules </p>
+         </div>
+         
+
           <!-- <div class="dot"></div>
           <div class="dot"></div>
           <div class="dot"></div>
@@ -46,6 +54,7 @@
         <button class="randomBtn">Random</button>
         <button class="reset" onclick="resetGame()">Reset</button>
       </div>
+      <script src="https://kit.fontawesome.com/b15e9369dd.js" crossorigin="anonymous"></script>
     <script src="guess-words.js"></script>
   </body>
 </html>

@@ -3671,7 +3671,7 @@ let mistakes = [];
 let tries = 5;
 
 const wordsScrambled = document.querySelector(".scrambled");
-const inputBox = document.querySelector(".filled-box");
+// const inputBox = document.querySelector(".filled-box");
 const wrongLetters = document.querySelector(".mistakes");
 const triesDot = document.querySelector(".triesNumber");
 const dots = document.querySelectorAll(".dot");
@@ -3715,7 +3715,7 @@ function createInputField() {
     console.log(word.length);
     const box = document.createElement("div"); // Createing box div element with createElement
     console.log(box);
-    box.classList.add("filled-box"); // Adding the box to filled-box  the div created in our HTML
+     box.classList.add("filled-box"); // Adding the box to filled-box  the div created in our HTML
     const input = document.createElement("input"); // Creating input element
     input.type = "text";
     input.maxLength = 1;
@@ -3752,13 +3752,13 @@ function handleInput() {
       const currentInput = event.target; // Getting input value
       const value = currentInput.value.replace(/[^a-zA-Z]/g, "").slice(-1); //Using regex with replace to avoid numbers in input field
 
-      currentInput.value = value; // update the input field
+      currentInput.value = value.toLocaleLowerCase(); // update the input field
 
       if (!value) {
         showWin(inputs);
       }
 
-      const current = value.toLocaleLowerCase();
+      const current = value;
 
       // if an input current value and word index are equal
       if (current === String(word[index]).toLocaleLowerCase()) {
@@ -3844,7 +3844,7 @@ function resetGame() {
   document.querySelectorAll("input").forEach((i) => (i.value = ""));
   mistakes = [];
   wrongLetters.textContent = "Mistakes:";
-  dots.forEach((dot) => dot.classList.remove("active-dot"));
+  // dots.forEach((dot) => dot.classList.remove("active-dot"));
   tries = 5;
   triesDot.textContent = `Tries:(${tries}/5)`;
   // console.log("Reset Game");
@@ -3861,4 +3861,39 @@ randomWordButton.addEventListener("click", startGame);
 
 startGame();
 
-//Push to github and deploy
+// function info() {
+//   const infoPopup = document.querySelector(".info");
+//   // const gameRule = document.querySelector(".game-rule")
+//   // gameRule.style.display = "none"
+//   // console.log(gameRule)
+//   //  document.querySelector(".x").addEventListener("click",() => {
+//   //      gameRule.style.display = "none"
+
+//   // })
+
+
+// const infoRules = document.querySelector(".rules")
+//     infoRules.style.display = "none"
+//    console.log(infoRules)
+//   infoPopup.addEventListener("click",() => {
+//    if(infoPopup){
+//     infoRules.style.display = "block"
+//    } else{
+//    }
+
+    
+//   })
+ 
+
+// }
+
+// info()
+
+
+function toggleInfo(){
+  const rules = document.getElementById("rules")
+  console.log(rules)
+  console.log("Clicked")
+  rules.classList.toggle("hide")
+
+}
