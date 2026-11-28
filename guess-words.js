@@ -3895,5 +3895,10 @@ function toggleInfo(){
   console.log(rules)
   console.log("Clicked")
   rules.classList.toggle("hide")
+  // setTimeout(()=> {
+  //   if(rules.classList.toggle === "hide"){
+  //     console.log("hidden")
+  //   } 
+  // },3000)
 
 }
